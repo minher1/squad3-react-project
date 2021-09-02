@@ -6,6 +6,30 @@ function AddDeployment() {
     const [deploymentDateObject, setDeploymentDateObject] = useState([]);
     const [newDeploymentDateObject, setNewDeploymentDateObject] = useState({ datePart: "", timePart: "" });
 
+    const frequency = (deployments) => {
+        if (deployments.length === 0 || deployments.length === 1) {
+            return deploymentDateObject.length;
+        }
+        if (weeksBetween(deployments[0], deployments[deployments.length - 1]) === 1) {
+            return deployments.length;
+        }
+
+        const result = deploymentDateObject.length / weeksBetween(deployments[0], deployments[deployments.length - 1]);
+        if (Number.isInteger(result)) {
+            return result;
+        } else {
+            return result.toFixed(1);
+        }
+    };
+
+    function sortDeployments(array) {
+        return array.sort((a, b) => a - b)
+    }
+
+    function weeksBetween(d1, d2) {
+        return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000)) + 1;
+    }
+
     function formatDate(date, time) {
         const utcSeconds = new Date(...`${date} ${time}`.split(/[- :]/)).getTime() / 1000;
         const d = new Date(0);
@@ -23,8 +47,9 @@ function AddDeployment() {
     return (
         <Card body className="mt-5 bg-light">
             <h1 className="diplay-4">Deployments</h1>
-            <ListGroup className="mt-5">
-                {deploymentDateObject.sort((a, b) => a - b).map((dx, index) => (
+            <p className="mt-2">Frequency: <strong>{frequency(sortDeployments(deploymentDateObject))}/week</strong></p>
+            <ListGroup className="mt-2">
+                {sortDeployments(deploymentDateObject).map((dx, index) => (
                     <ListGroup.Item key={index}>{index + 1}. {dx.toLocaleDateString("en-US")}  {dx.toLocaleTimeString("en-US")}</ListGroup.Item>
                 ))}
             </ListGroup>
