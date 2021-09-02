@@ -1,4 +1,4 @@
-import { Form, Table, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Table, Button, Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
 import Moment from 'moment';
 
@@ -18,8 +18,8 @@ function RecoveryTimes() {
     };
 
     return (
-        <Container>
-            <h1 className="diplay-4 mt-5">Recovery Times</h1>
+        <Card body className="mt-5 bg-light">
+            <h1 className="diplay-4">Recovery Times</h1>
             <Table striped bordered hover className="mt-5">
                 <thead>
                     <tr>
@@ -91,7 +91,7 @@ function RecoveryTimes() {
                     </Col>
                 </Row>
             </Form>
-        </Container>
+        </Card>
     );
 }
 
