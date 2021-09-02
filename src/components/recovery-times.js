@@ -16,10 +16,31 @@ function RecoveryTimes() {
         setRecoveryTimes((recoveryTimes) => [...recoveryTimes, newRecoveryTime]);
         setNewRecoveryTime({ startDate: "", startTime: "", duration: "" });
     };
+    
+    const calculateMTTR = (array ) => {
+        let total = 0 ;
+        array.map((time , i) => (
+            total = total + parseInt(time.duration)
+        ));
+        if  (array.length === 0) { 
+            return 0; 
+        } else {
+            const result =  total/array.length;
+            if (Number.isInteger(result)) {
+                return result;
+            } else {
+                return result.toFixed(1);
+            }
+        }
+        
+    }
+    const plural = (calculateMTTR(recoveryTimes) === "1.0" || calculateMTTR(recoveryTimes) === 0 ) ? "" : "s";
+
 
     return (
         <Card body className="mt-5 bg-light">
             <h1 className="diplay-4">Recovery Times</h1>
+            <h3> MTTR : <strong>{calculateMTTR(recoveryTimes)} Minute{plural} </strong></h3>
             <Table striped bordered hover className="mt-5">
                 <thead>
                     <tr>
