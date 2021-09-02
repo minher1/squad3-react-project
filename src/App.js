@@ -1,6 +1,7 @@
 import './App.css';
 import RecoveryTimes from "./components/recovery-times.js";
 import AddDeployement from './components/add-deployment';
+import LeadTime from './components/lead-time';
 import { Col, Container, Row, Navbar } from 'react-bootstrap';
 
 function App() {
@@ -18,6 +19,11 @@ function App() {
           </Col>
           <Col>
             <RecoveryTimes />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <LeadTime />
           </Col>
         </Row>
       </Container>
