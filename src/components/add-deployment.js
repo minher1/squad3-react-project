@@ -25,7 +25,7 @@ function AddDeployment() {
             <h1 className="diplay-4">Deployments</h1>
             <ListGroup className="mt-5">
                 {deploymentDateObject.sort((a, b) => a - b).map((dx, index) => (
-                    <ListGroup.Item>{index + 1}. {dx.toLocaleDateString("en-US")}  {dx.toLocaleTimeString("en-US")}</ListGroup.Item>
+                    <ListGroup.Item key={index}>{index + 1}. {dx.toLocaleDateString("en-US")}  {dx.toLocaleTimeString("en-US")}</ListGroup.Item>
                 ))}
             </ListGroup>
             <Form onSubmit={handleSubmit} className="mt-3">
@@ -36,7 +36,7 @@ function AddDeployment() {
                             <Form.Control
                                 type="date"
                                 name="deploymentDate"
-                                aria-label="deploymentDate"
+                                aria-labelledby="deploymentDate"
                                 value={newDeploymentDateObject.datePart}
                                 style={{ width: "300px" }}
                                 onChange={(e) => setNewDeploymentDateObject({ ...newDeploymentDateObject, datePart: e.target.value })} />
@@ -49,7 +49,7 @@ function AddDeployment() {
                         <Form.Control
                             type="time"
                             name="deploymentTime"
-                            aria-label="deploymentTime"
+                            aria-labelledby="deploymentTime"
                             value={newDeploymentDateObject.timePart}
                             style={{ width: "300px" }}
                             onChange={(e) => setNewDeploymentDateObject({ ...newDeploymentDateObject, timePart: e.target.value })}
