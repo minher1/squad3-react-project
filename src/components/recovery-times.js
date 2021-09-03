@@ -2,18 +2,20 @@ import { Form, Table, Button, Row, Col, Card } from "react-bootstrap";
 import { useState } from "react";
 import Moment from 'moment';
 
-function RecoveryTimes() {
+function RecoveryTimes({ recoveryCount }) {
 
     Moment.locale('en');
 
-
     const [recoveryTimes, setRecoveryTimes] = useState([]);
-
+    
     const [newRecoveryTime, setNewRecoveryTime] = useState({ startDate: "", startTime: "", duration: "" });
+    
+    recoveryCount(recoveryTimes.length);
 
     const onSubmit = (e) => {
         e.preventDefault();
         setRecoveryTimes((recoveryTimes) => [...recoveryTimes, newRecoveryTime]);
+        console.log(recoveryCount);
         setNewRecoveryTime({ startDate: "", startTime: "", duration: "" });
     };
     

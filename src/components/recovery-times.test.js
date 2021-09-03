@@ -2,8 +2,11 @@ import { render, screen } from '@testing-library/react';
 import RecoveryTimes from './recovery-times';
 import userEvent from "@testing-library/user-event";
 
+const mockSetRecoveryCount = jest.fn();
+
 test('allow users to add recovery times', () => {
-    render(< RecoveryTimes />);
+
+    render(< RecoveryTimes recoveryCount={mockSetRecoveryCount} />);
 
     const startDateField = screen.getByLabelText("Start Date");
     const startTimeField = screen.getByLabelText("Start Time");
@@ -20,11 +23,10 @@ test('allow users to add recovery times', () => {
 });
 
 test('calculate MTTR', () => {
-    render(< RecoveryTimes />);
+    render(< RecoveryTimes recoveryCount={mockSetRecoveryCount} />);
     const startDateField = screen.getByLabelText("Start Date");
     const startTimeField = screen.getByLabelText("Start Time");
     const durationField = screen.getByLabelText("Duration");
-    const linkElement = screen.getByText(/Recovery Times/i);
     userEvent.type(startDateField, "2021-09-01");
     userEvent.type(startTimeField, "2245");
     userEvent.type(durationField, "15");
