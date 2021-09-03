@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { Col, Form, ListGroup, Row, Button, Card } from 'react-bootstrap';
 
-function AddDeployment() {
+function AddDeployment({ deploymentsCount }) {
     const [deploymentDateObject, setDeploymentDateObject] = useState([]);
     const [newDeploymentDateObject, setNewDeploymentDateObject] = useState({ datePart: "", timePart: "" });
+    deploymentsCount(deploymentDateObject.length);
 
     const frequency = (deployments) => {
         if (deployments.length === 0 || deployments.length === 1) {

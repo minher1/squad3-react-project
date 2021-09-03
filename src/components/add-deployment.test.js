@@ -2,8 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AddDeployment from './add-deployment';
 
+const mockSetDeploymentsCount = jest.fn();
+
 test('allow user to inout text', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     const dateField = screen.getByLabelText("Deployment Date");
     userEvent.type(dateField, "2021-08-23")
     const timeField = screen.getByLabelText("Deployment Time");
@@ -14,13 +16,13 @@ test('allow user to inout text', () => {
 });
 
 test('frequency deployment is zero when no deployment is active', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     expect(screen.getByText(/Frequency/i)).toBeVisible();
     expect(screen.getByText(/0\/week/i)).toBeVisible();
 });
 
 test('frequency deployment is one when one deployment is active', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     const dateField = screen.getByLabelText("Deployment Date");
     userEvent.type(dateField, "2021-08-23")
     const timeField = screen.getByLabelText("Deployment Time");
@@ -31,7 +33,7 @@ test('frequency deployment is one when one deployment is active', () => {
 });
 
 test('frequency deployment is two when two deployment are active in same week', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     const dateField = screen.getByLabelText("Deployment Date");
     userEvent.type(dateField, "2021-08-23")
     const timeField = screen.getByLabelText("Deployment Time");
@@ -45,7 +47,7 @@ test('frequency deployment is two when two deployment are active in same week', 
 });
 
 test('frequency deployment is two when two deployment are active not in the same week', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     const dateField = screen.getByLabelText("Deployment Date");
     userEvent.type(dateField, "2021-08-23")
     const timeField = screen.getByLabelText("Deployment Time");
@@ -59,7 +61,7 @@ test('frequency deployment is two when two deployment are active not in the same
 });
 
 test('frequency deployment is 0.5 when two deployment are active in 4 weeks', () => {
-    render(<AddDeployment />);
+    render(<AddDeployment deploymentsCount={mockSetDeploymentsCount} />);
     const dateField = screen.getByLabelText("Deployment Date");
     userEvent.type(dateField, "2021-09-23")
     const timeField = screen.getByLabelText("Deployment Time");
